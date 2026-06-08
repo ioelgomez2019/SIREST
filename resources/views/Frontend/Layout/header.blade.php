@@ -551,7 +551,7 @@
 
     //carrito localstorage
     let ProductosEnCarritolado = localStorage.getItem("productos-en-carrito");
-    ProductosEnCarritolado = JSON.parse(ProductosEnCarritolado)
+    ProductosEnCarritolado = JSON.parse(ProductosEnCarritolado) || []
 
 
 

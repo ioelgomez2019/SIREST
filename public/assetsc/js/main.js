@@ -115,10 +115,15 @@
     var heroSlider = new Swiper('.hero-slider-active.swiper-container', {
         slidesPerView: 1,
         effect: "fade",
+        fadeEffect: {
+            crossFade: true,
+        },
         speed: 1500,
         watchSlidesProgress: true,
         loop: true,
-        autoplay: false,
+        autoplay: {
+            delay: 5000,
+        },
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
