@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 
+use App\Models\Negocio;
 use App\Models\Productos;
 use App\Models\Ventas;
 use Illuminate\Http\Request;
@@ -116,9 +117,29 @@ class VentasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Ventas $venta)
     {
-        //
+        $venta_actual = Ventas::join('persona', 'ventas.idpersona', '=', 'persona.idpersona')
+            ->where('ventas.id_venta', $venta->id_venta)
+            ->select('ventas.*', 'persona.nombres', 'persona.apellidos', 'persona.telefono', 'persona.email')
+            ->first();
+
+        return view('Backend.Ventas.ventasver', compact('venta_actual'));
+    }
+
+    /**
+     * Muestra el ticket de la venta listo para imprimir.
+     */
+    public function print(Ventas $venta)
+    {
+        $negocio = Negocio::all();
+
+        $venta_actual = Ventas::join('persona', 'ventas.idpersona', '=', 'persona.idpersona')
+            ->where('ventas.id_venta', $venta->id_venta)
+            ->select('ventas.*', 'persona.nombres', 'persona.apellidos', 'persona.telefono', 'persona.email')
+            ->first();
+
+        return view('Backend.Ventas.ventasprint', compact('venta_actual', 'negocio'));
     }
 
     /**

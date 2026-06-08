@@ -101,10 +101,10 @@
                                         Acciones
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton" data-popper-placement="bottom-end" data-popper-reference-hidden="" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-102.667px, 34px, 0px);">
-                                        <li><a class="dropdown-item" href="">
+                                        <li><a class="dropdown-item" href="{{ route('ventas_ver', $producto->id_venta) }}">
                                                 Ver Venta <i class="material-icons">visibility</i></a>
                                         </li>
-                                        <li><a class="dropdown-item" href="">
+                                        <li><a class="dropdown-item" href="{{ route('ventas_imprimir', $producto->id_venta) }}" target="_blank">
                                                 Imprimir<i class="material-icons">print</i></a>
                                         </li>
 

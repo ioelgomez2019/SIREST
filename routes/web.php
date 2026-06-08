@@ -138,6 +138,8 @@ Route::delete('backend/reparaciones/{reparacion}/eliminar', [ReparacionesControl
 //VENTAS
 Route::get('backend/ventas', [VentasController::class, 'index', 'index2'])->name('ventas');
 Route::post('backend/ventas', [VentasController::class, 'store'])->name('ventas_crear');
+Route::get('backend/ventas/{venta}/ver', [VentasController::class, 'show'])->name('ventas_ver');
+Route::get('backend/ventas/{venta}/imprimir', [VentasController::class, 'print'])->name('ventas_imprimir');
 //Route::get('backend/ventas', [VentasController::class, 'index2'])->name('ventas');
 //Resumen de venta
 Route::get('backend/resumenventas', [ResumenventasController::class, 'index'])->name('resumenventas');
