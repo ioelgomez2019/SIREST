@@ -29,10 +29,10 @@ class ClientesEcomReq extends FormRequest
         return [
             'nombres' => 'required',
             'apellidos' => 'required',
-            'identificacion' => ['required', 'unique:persona,identificacion'],
+            'identificacion' => ['required', 'unique:clientes,identificacion'],
             'telefono' => 'required',
             'direccionfiscal' => 'required',
-            'email' => ['required', 'email', 'string', 'unique:persona,email'],
+            'email' => ['required', 'email', 'string', 'unique:clientes,email'],
         ];
     }
 }

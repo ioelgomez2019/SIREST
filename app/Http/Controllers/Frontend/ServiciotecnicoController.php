@@ -129,7 +129,7 @@ class ServiciotecnicoController extends Controller
 
         if ($response->isApproved()) {
             $pedido = Pedido::create([
-                'personaid' => $user->idpersona,
+                'clienteid' => $user->idcliente,
                 'fecha' => now(),
                 'monto' => $response->amount - 10000,
                 'costo_envio' => 10000,
@@ -159,10 +159,10 @@ class ServiciotecnicoController extends Controller
     public function list_pedidos_servicio()
     {
         $user = auth()->guard('client')->user();
-        $pedidos = Pedido::join('persona', 'pedido.personaid', '=', 'persona.idpersona')
+        $pedidos = Pedido::join('clientes', 'pedido.clienteid', '=', 'clientes.idcliente')
             ->join('dispositivo', 'pedido.id_device', '=', 'dispositivo.id_device')
-            ->select('pedido.*', 'pedido.status as estado_p', 'persona.*', 'persona.apellidos as persona_apellidos', 'dispositivo.*')
-            ->where('pedido.personaid', $user->idpersona)
+            ->select('pedido.*', 'pedido.status as estado_p', 'clientes.*', 'clientes.apellidos as persona_apellidos', 'dispositivo.*')
+            ->where('pedido.clienteid', $user->idcliente)
             ->orderBy('pedido.idpedido', 'desc')
             ->get();
         // return $pedidos;

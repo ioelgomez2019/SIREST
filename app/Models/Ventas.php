@@ -16,7 +16,7 @@ class Ventas extends Model
     protected $primaryKey = "id_venta";
 
     protected $fillable = [
-        'idpersona',
+        'idcliente',
         'lista_venta',
         'tipodepago_venta',
         'total_venta',

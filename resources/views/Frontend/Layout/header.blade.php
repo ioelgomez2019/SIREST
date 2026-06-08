@@ -141,7 +141,7 @@
                                 @endif
                             @else
                                 <li class="list-unstyled rounded-circle">
-                                    <a href="{{ route('editar_perfil_cliente', Auth::guard('client')->user()->idpersona) }}"
+                                    <a href="{{ route('editar_perfil_cliente', Auth::guard('client')->user()->idcliente) }}"
                                         class="btn btn-outline-primary btn-xl mb-0 me-6">
                                         @php
                                             $name = Auth::guard('client')->user()->nombres;

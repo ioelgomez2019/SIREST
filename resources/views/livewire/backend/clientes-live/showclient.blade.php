@@ -33,7 +33,7 @@
                     <p class="mb-0">{{ $client->direccionfiscal }}</p>
                 </div>
             </div>
-            {{-- <input type="text" value="{{ $client->idpersona }}" name="cliente"> --}}
+            {{-- <input type="text" value="{{ $client->idcliente }}" name="cliente"> --}}
         @endforeach
     @endif
 </div>

@@ -114,11 +114,11 @@ CREATE TABLE `detalle_temp`  (
 DROP TABLE IF EXISTS `factura`;
 CREATE TABLE `factura`  (
   `idfactura` bigint(20) NOT NULL,
-  `idpersona` bigint(20) NULL DEFAULT NULL,
+  `idcliente` bigint(20) NULL DEFAULT NULL,
   `fecha` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`idfactura`) USING BTREE,
-  INDEX `fk_fa_per`(`idpersona`) USING BTREE,
-  CONSTRAINT `fk_fa_per` FOREIGN KEY (`idpersona`) REFERENCES `persona` (`idpersona`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `fk_fa_cli`(`idcliente`) USING BTREE,
+  CONSTRAINT `fk_fa_cli` FOREIGN KEY (`idcliente`) REFERENCES `clientes` (`idcliente`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -185,7 +185,7 @@ CREATE TABLE `pedido`  (
   `referenciacobro` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NULL DEFAULT NULL,
   `idtransaccionpaypal` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NULL DEFAULT NULL,
   `datospaypal` text CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NULL,
-  `personaid` bigint(20) NOT NULL,
+  `clienteid` bigint(20) NOT NULL,
   `usuarioid` bigint(20) NULL DEFAULT NULL,
   `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `costo_envio` decimal(10, 2) NOT NULL DEFAULT 0.00,
@@ -198,11 +198,11 @@ CREATE TABLE `pedido`  (
   `idtipopedido` bigint(20) NULL DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`idpedido`) USING BTREE,
-  INDEX `personaid`(`personaid`) USING BTREE,
+  INDEX `clienteid`(`clienteid`) USING BTREE,
   INDEX `tipopagoid`(`tipopagoid`) USING BTREE,
   INDEX `pedido_ibfk_3`(`idtipopedido`) USING BTREE,
   INDEX `pedido_ibfk_4`(`usuarioid`) USING BTREE,
-  CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`clienteid`) REFERENCES `clientes` (`idcliente`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`tipopagoid`) REFERENCES `tipopago` (`idtipopago`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `pedido_ibfk_3` FOREIGN KEY (`idtipopedido`) REFERENCES `tipo_pedido` (`id_tip_pedido`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `pedido_ibfk_4` FOREIGN KEY (`usuarioid`) REFERENCES `usuarios` (`idusuarios`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -274,11 +274,11 @@ INSERT INTO `permisos` VALUES (37, 4, 8, 1, 0, 0, 0);
 INSERT INTO `permisos` VALUES (38, 4, 9, 0, 0, 0, 0);
 
 -- ----------------------------
--- Table structure for persona
+-- Table structure for clientes
 -- ----------------------------
-DROP TABLE IF EXISTS `persona`;
-CREATE TABLE `persona`  (
-  `idpersona` bigint(20) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `clientes`;
+CREATE TABLE `clientes`  (
+  `idcliente` bigint(20) NOT NULL AUTO_INCREMENT,
   `identificacion` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NULL DEFAULT NULL,
   `nombres` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   `apellidos` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
@@ -291,17 +291,17 @@ CREATE TABLE `persona`  (
   `token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NULL DEFAULT NULL,
   `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(11) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`idpersona`) USING BTREE
+  PRIMARY KEY (`idcliente`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of persona
+-- Records of clientes
 -- ----------------------------
-INSERT INTO `persona` VALUES (1, '24091989', 'Abel', 'OSH', 123456, 'info@abelosh.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'CF', 'Abel OSH', 'Ciudad', NULL, '2021-08-20 01:34:15', 1);
-INSERT INTO `persona` VALUES (2, '24091990', 'Alex', 'Arana', 456878977, 'alex@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL, NULL, NULL, NULL, '2021-08-20 02:58:47', 1);
-INSERT INTO `persona` VALUES (3, '84654864', 'Ricardo', 'Hernández Pérez', 4687987, 'hr@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '468798', 'Ricardo HP', 'Ciudad de Guatemala', NULL, '2021-08-20 03:41:28', 1);
-INSERT INTO `persona` VALUES (4, '798465877', 'Fernando', 'Guerra', 468498, 'fer@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL, NULL, NULL, NULL, '2021-08-21 18:07:00', 1);
-INSERT INTO `persona` VALUES (5, NULL, 'Arhyel P', 'Ramos', 235235, 'a@info.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, NULL, NULL, '2023-04-26 19:41:39', 1);
+INSERT INTO `clientes` VALUES (1, '24091989', 'Abel', 'OSH', 123456, 'info@abelosh.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'CF', 'Abel OSH', 'Ciudad', NULL, '2021-08-20 01:34:15', 1);
+INSERT INTO `clientes` VALUES (2, '24091990', 'Alex', 'Arana', 456878977, 'alex@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL, NULL, NULL, NULL, '2021-08-20 02:58:47', 1);
+INSERT INTO `clientes` VALUES (3, '84654864', 'Ricardo', 'Hernández Pérez', 4687987, 'hr@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '468798', 'Ricardo HP', 'Ciudad de Guatemala', NULL, '2021-08-20 03:41:28', 1);
+INSERT INTO `clientes` VALUES (4, '798465877', 'Fernando', 'Guerra', 468498, 'fer@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', NULL, NULL, NULL, NULL, '2021-08-21 18:07:00', 1);
+INSERT INTO `clientes` VALUES (5, NULL, 'Arhyel P', 'Ramos', 235235, 'a@info.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, NULL, NULL, '2023-04-26 19:41:39', 1);
 
 -- ----------------------------
 -- Table structure for post

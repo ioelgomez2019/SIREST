@@ -26,10 +26,10 @@ class ClientesReq extends FormRequest
         return [
             'nombre_cliente' => 'required',
             'apellido_cliente' => 'required',
-            'identificacion_cliente' => ['required', 'unique:persona,identificacion'],
+            'identificacion_cliente' => ['required', 'unique:clientes,identificacion'],
             'password_cliente' => 'required',
             'telefono_cliente' => 'required',
-            'email_cliente' => ['required', 'email', 'string', 'unique:persona,email'],
+            'email_cliente' => ['required', 'email', 'string', 'unique:clientes,email'],
         ];
     }
     public function messages(){

@@ -16,10 +16,10 @@ class Listarventas extends Component
     public function render()
     {
         //$productos = Ventas::paginate(10);
-        $productos = Ventas::select('ventas.*', 'persona.nombres', 'persona.apellidos')
-        ->join('persona', 'ventas.idpersona', '=', 'persona.idpersona')
-        ->where('persona.nombres','like','%' . $this->search . '%')
-        ->orwhere('persona.apellidos','like','%' . $this->search . '%')
+        $productos = Ventas::select('ventas.*', 'clientes.nombres', 'clientes.apellidos')
+        ->join('clientes', 'ventas.idcliente', '=', 'clientes.idcliente')
+        ->where('clientes.nombres','like','%' . $this->search . '%')
+        ->orwhere('clientes.apellidos','like','%' . $this->search . '%')
         ->orderBy($this->sort, $this->fecha)
         ->paginate(5);
         $lista = ['One','Two','Three','Four','Five','Six','Seven'];

@@ -6,7 +6,7 @@ use App\Http\Requests\Frontend\ClientesEcom\ClientesEcomReq;
 use App\Http\Requests\Frontend\ClientesEcom\ClienteupReq;
 
 use App\Http\Controllers\Controller;
-use App\Models\Persona;
+use App\Models\Cliente;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -35,7 +35,7 @@ class ClientesEcomController extends Controller
     public function store(ClientesEcomReq $request)
     {
         //return $request;
-        $clientes = Persona::create([
+        $clientes = Cliente::create([
             'nombres' => $request->nombres,
             'apellidos' => $request->apellidos,
             'identificacion' => $request->identificacion,
@@ -70,10 +70,10 @@ class ClientesEcomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ClienteupReq $request, Persona $persona)
+    public function update(ClienteupReq $request, Cliente $cliente)
     {
         //
-        $persona->update([
+        $cliente->update([
             'nombres' => $request->nombres,
             'apellidos' => $request->apellidos,
             'identificacion' => $request->identificacion,
@@ -81,22 +81,22 @@ class ClientesEcomController extends Controller
             'email' => $request->email,
             'direccionfiscal' => $request->direccionfiscal
         ]);
-        $muestra = Auth::guard('client')->user()->idpersona;
+        $muestra = Auth::guard('client')->user()->idcliente;
         //return $muestra;
-        return redirect()->route('editar_perfil_cliente', Auth::guard('client')->user()->idpersona)->with('status', '¡Datos Cliente Actualizados Correctamente!');
+        return redirect()->route('editar_perfil_cliente', Auth::guard('client')->user()->idcliente)->with('status', '¡Datos Cliente Actualizados Correctamente!');
 
         //return $request;
 
     }
-    public function updatepass(Request $request, Persona $persona)
+    public function updatepass(Request $request, Cliente $cliente)
     {
-        $persona->update([
+        $cliente->update([
             'password' => Hash::make($request->password)
         ]);
 
 
         //return $request;
-        return redirect()->route('editar_perfil_cliente', Auth::guard('client')->user()->idpersona)->with('contrastatus', '¡Contraseña Actualizada Correctamente!');
+        return redirect()->route('editar_perfil_cliente', Auth::guard('client')->user()->idcliente)->with('contrastatus', '¡Contraseña Actualizada Correctamente!');
     }
 
     /**

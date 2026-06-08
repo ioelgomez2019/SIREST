@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Backend\ClientesLive;
 
-use App\Models\Persona;
+use App\Models\Cliente;
 use Livewire\Component;
 
 class Showclient extends Component
@@ -16,7 +16,7 @@ class Showclient extends Component
     {
         $this->selectedClientId = $selectedClientId;
 
-        $this->cliente_act = Persona::where('idpersona', $this->selectedClientId)->get();
+        $this->cliente_act = Cliente::where('idcliente', $this->selectedClientId)->get();
         // dd($selectedClientId);
         // dd($this->cliente_act);
     }

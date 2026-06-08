@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Backend\ClientesLive;
 
-use App\Models\Persona;
+use App\Models\Cliente;
 use Livewire\Component;
 
 class Listarclient extends Component
@@ -14,7 +14,7 @@ class Listarclient extends Component
 
     public function render()
     {
-        $clientes = Persona::orderBy('nombres')->get();
+        $clientes = Cliente::orderBy('nombres')->get();
         return view('livewire.backend.clientes-live.listarclient', compact('clientes'));
     }
 }

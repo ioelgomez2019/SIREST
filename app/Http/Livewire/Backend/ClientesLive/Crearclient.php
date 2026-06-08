@@ -2,18 +2,18 @@
 
 namespace App\Http\Livewire\Backend\ClientesLive;
 
-use App\Models\Persona;
+use App\Models\Cliente;
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
 
 
 class Crearclient extends Component
 {
-    public Persona $cliente;
+    public Cliente $cliente;
 
     public function mount()
     {
-        $this->cliente = new Persona();
+        $this->cliente = new Cliente();
     }
 
     public function rules()
@@ -56,7 +56,7 @@ class Crearclient extends Component
     {
         $this->validate();
         // $this->cliente->save();
-        $this->cliente = Persona::create([
+        $this->cliente = Cliente::create([
             'nombres' => $this->cliente['nombres'],
             'apellidos' => $this->cliente['apellidos'],
             'cod' => $this->cliente['cod'],
@@ -65,7 +65,7 @@ class Crearclient extends Component
             'password' => Hash::make($this->cliente['password']),
             'direccionfiscal' => $this->cliente['direccionfiscal'],
         ]);
-        $this->cliente = new Persona();
+        $this->cliente = new Cliente();
 
         session()->flash('cerrarModal');
 

@@ -17,7 +17,7 @@ class Pedido extends Model
 
     protected $fillable = [
 
-        'personaid',
+        'clienteid',
         'usuarioid',
         'fecha',
         'fecha_entrega',
@@ -35,7 +35,7 @@ class Pedido extends Model
         'descripcion',
 
         // 'referenciacobro',
-        // 'personaid',
+        // 'clienteid',
         // 'usuarioid',
         // 'fecha',
         // 'costo_envio',

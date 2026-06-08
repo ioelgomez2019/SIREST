@@ -71,7 +71,7 @@ return [
         ],
         'clients' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Persona::class,
+            'model' => App\Models\Cliente::class,
         ],
 
         // 'users' => [

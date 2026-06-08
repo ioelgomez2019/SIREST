@@ -62,7 +62,7 @@
             <div class="col-lg-6 col-md-6">
                 <div class="account_form aos-init aos-animate" data-aos="fade-up" data-aos-delay="0">
                     <h3>Editar USUARIO</h3>
-                    <form id="form1" action="{{ route('editar_perfil_cliente', Auth::guard('client')->user()->idpersona) }}" method="POST" >
+                    <form id="form1" action="{{ route('editar_perfil_cliente', Auth::guard('client')->user()->idcliente) }}" method="POST" >
 
 
                         @csrf
@@ -106,7 +106,7 @@
                 <div class="account_form register aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
                     <h3>Editar contraceñas </h3>
 
-                    <form id="form2" action="{{ route('editar_perfil_cliente_pass',Auth::guard('client')->user()->idpersona) }}" method="POST" >
+                    <form id="form2" action="{{ route('editar_perfil_cliente_pass',Auth::guard('client')->user()->idcliente) }}" method="POST" >
 
                         @csrf
                         @method('put')

@@ -3,26 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Persona extends Authenticatable
+/**
+ * Cliente del e-commerce (frontend). Se autentica mediante el guard `client`.
+ * Antes se llamaba Persona y apuntaba a la tabla `persona`.
+ */
+class Cliente extends Authenticatable
 {
     //use HasApiTokens, HasFactory, Notifiable;
-    protected $primaryKey = 'idpersona';
+    protected $primaryKey = 'idcliente';
 
     protected $guard = "client";
 
-    protected $table = "persona";
+    protected $table = "clientes";
 
     public $timestamps = false;
 
-
-
     protected $fillable = [
-        'idpersona',
+        'idcliente',
         'nombres',
         'identificacion',
         'apellidos',

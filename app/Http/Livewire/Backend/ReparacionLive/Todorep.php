@@ -22,12 +22,12 @@ class Todorep extends Component
 
     public function render()
     {
-        $pedidos = Pedido::join('persona', 'pedido.personaid', '=', 'persona.idpersona')
+        $pedidos = Pedido::join('clientes', 'pedido.clienteid', '=', 'clientes.idcliente')
             ->leftJoin('usuarios', 'pedido.usuarioid', '=', 'usuarios.idusuarios')
             ->join('dispositivo', 'pedido.id_device', '=', 'dispositivo.id_device')
-            ->select('pedido.*', 'pedido.status as estado_p', 'persona.*', 'persona.apellidos as persona_apellidos', 'usuarios.*', 'usuarios.apellidos as usuario_apellidos', 'usuarios.email as usuario_email', 'dispositivo.*')
-            ->where('persona.apellidos', 'LIKE', '%' . $this->search . '%')
-            ->orWhere('persona.nombres', 'LIKE', '%' . $this->search . '%')
+            ->select('pedido.*', 'pedido.status as estado_p', 'clientes.*', 'clientes.apellidos as persona_apellidos', 'usuarios.*', 'usuarios.apellidos as usuario_apellidos', 'usuarios.email as usuario_email', 'dispositivo.*')
+            ->where('clientes.apellidos', 'LIKE', '%' . $this->search . '%')
+            ->orWhere('clientes.nombres', 'LIKE', '%' . $this->search . '%')
             ->orWhere('usuarios.nombre', 'LIKE', '%' . $this->search . '%')
             ->orWhere('usuarios.apellidos', 'LIKE', '%' . $this->search . '%')
             ->orWhere('pedido.idpedido', 'LIKE', '%' . $this->search . '%')

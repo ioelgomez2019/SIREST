@@ -16,7 +16,7 @@ class OrderController extends Controller
     public function show(Pedido $pedido)
     {
         $user = auth()->guard('client')->user();
-        if ($pedido->personaid == $user->idpersona) {
+        if ($pedido->clienteid == $user->idcliente) {
             $dispositivo = Dispositivo::find($pedido->id_device);
             $lista_pedido_array = json_decode($pedido->lista_pedido, true);
             if ($lista_pedido_array) {
@@ -62,7 +62,7 @@ class OrderController extends Controller
 
         if ($status == 'approved') {
             $pedido = Pedido::create([
-                'personaid' => $user->idpersona,
+                'clienteid' => $user->idcliente,
                 'fecha' => now(),
                 'monto' => $response->transaction_amount - 10000,
                 'costo_envio' => 10000,

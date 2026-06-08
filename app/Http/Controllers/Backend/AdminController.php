@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Promociones;
 use App\Models\Ventas;
 use App\Models\Usuarios;
-use App\Models\Persona;
+use App\Models\Cliente;
 use App\Models\Pedido;
 use App\Models\Productos;
 class AdminController extends Controller
@@ -23,7 +23,7 @@ class AdminController extends Controller
         $total_dinero= 0;
         $suma_venta = Ventas::sum('total_venta');
         $total_usuarios = Usuarios::count();
-        $total_clientes  = Persona::where('datecreated', '>=', DB::raw('DATE_SUB(CURDATE(), INTERVAL 7 DAY)'))
+        $total_clientes  = Cliente::where('datecreated', '>=', DB::raw('DATE_SUB(CURDATE(), INTERVAL 7 DAY)'))
         ->count();
         $reparaciones_total =Pedido::count();
         $reparaciones_pendientes = Pedido::where('status', '!=',5)->count();

@@ -10,7 +10,7 @@ use App\Models\Dispositivo;
 use App\Models\Imagenes;
 use App\Models\Negocio;
 use App\Models\Productos;
-use App\Models\Persona;
+use App\Models\Cliente;
 use App\Models\Usuarios;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
@@ -31,10 +31,10 @@ class ReparacionesController extends Controller
     {
         //
         // return Pedido::all();
-        $pedidos = Pedido::join('persona', 'pedido.personaid', '=', 'persona.idpersona')
+        $pedidos = Pedido::join('clientes', 'pedido.clienteid', '=', 'clientes.idcliente')
             ->leftJoin('usuarios', 'pedido.usuarioid', '=', 'usuarios.idusuarios')
             ->join('dispositivo', 'pedido.id_device', '=', 'dispositivo.id_device')
-            ->select('pedido.*', 'pedido.status as estado_p', 'persona.*', 'persona.apellidos as persona_apellidos', 'usuarios.*', 'usuarios.apellidos as usuario_apellidos', 'usuarios.email as usuario_email', 'dispositivo.*')
+            ->select('pedido.*', 'pedido.status as estado_p', 'clientes.*', 'clientes.apellidos as persona_apellidos', 'usuarios.*', 'usuarios.apellidos as usuario_apellidos', 'usuarios.email as usuario_email', 'dispositivo.*')
             ->paginate(5);
         // ->get();
         // return $pedidos;
@@ -63,7 +63,7 @@ class ReparacionesController extends Controller
         // return $request;
         if ($request->responsable) {
             $pedido = Pedido::create([
-                'personaid' => $request->cliente,
+                'clienteid' => $request->cliente,
                 'usuarioid' => $request->responsable,
                 'fecha' => now(),
                 'fecha_entrega' => $request->fecha_entrega,
@@ -82,7 +82,7 @@ class ReparacionesController extends Controller
             ]);
         } else {
             $pedido = Pedido::create([
-                'personaid' => $request->cliente,
+                'clienteid' => $request->cliente,
                 'usuarioid' => $request->responsable,
                 'fecha' => now(),
                 'fecha_entrega' => $request->fecha_entrega,
@@ -144,11 +144,11 @@ class ReparacionesController extends Controller
         // return $reparacion;
         $dispositivos = Dispositivo::all();
         $usuarios = Usuarios::all();
-        $rep_actual = Pedido::join('persona', 'pedido.personaid', '=', 'persona.idpersona')
+        $rep_actual = Pedido::join('clientes', 'pedido.clienteid', '=', 'clientes.idcliente')
             ->leftJoin('usuarios', 'pedido.usuarioid', '=', 'usuarios.idusuarios')
             ->join('dispositivo', 'pedido.id_device', '=', 'dispositivo.id_device')
             ->where('pedido.idpedido', $reparacion->idpedido)
-            ->select('pedido.*', 'persona.*', 'persona.apellidos as persona_apellidos', 'usuarios.*', 'usuarios.apellidos as usuario_apellidos', 'usuarios.email as usuario_email', 'dispositivo.*')
+            ->select('pedido.*', 'clientes.*', 'clientes.apellidos as persona_apellidos', 'usuarios.*', 'usuarios.apellidos as usuario_apellidos', 'usuarios.email as usuario_email', 'dispositivo.*')
             ->get();
         // return $rep_actual;
         $imagenes = Imagenes::where('idpedido', $reparacion->idpedido)->get();
@@ -179,7 +179,7 @@ class ReparacionesController extends Controller
         // return $request;
         // * Actualizar campos
         $reparacion->update([
-            'personaid' => $request->cliente,
+            'clienteid' => $request->cliente,
             'usuarioid' => $request->responsable,
             'fecha' => now(),
             'fecha_entrega' => $request->fecha_entrega,
@@ -269,11 +269,11 @@ class ReparacionesController extends Controller
         $negocio = Negocio::all();
         // return $negocio;
 
-        $rep_actual = Pedido::join('persona', 'pedido.personaid', '=', 'persona.idpersona')
+        $rep_actual = Pedido::join('clientes', 'pedido.clienteid', '=', 'clientes.idcliente')
             ->leftJoin('usuarios', 'pedido.usuarioid', '=', 'usuarios.idusuarios')
             ->join('dispositivo', 'pedido.id_device', '=', 'dispositivo.id_device')
             ->where('pedido.idpedido', $reparacion->idpedido)
-            ->select('pedido.*', 'persona.*', 'persona.apellidos as persona_apellidos', 'persona.telefono as persona_telefono', 'usuarios.*', 'usuarios.apellidos as usuario_apellidos', 'usuarios.email as usuario_email', 'dispositivo.*')
+            ->select('pedido.*', 'clientes.*', 'clientes.apellidos as persona_apellidos', 'clientes.telefono as persona_telefono', 'usuarios.*', 'usuarios.apellidos as usuario_apellidos', 'usuarios.email as usuario_email', 'dispositivo.*')
             ->get();
         // return $rep_actual;
         return view('Backend.Reparaciones.reparacionesprint', compact('rep_actual', 'negocio'));
@@ -285,11 +285,11 @@ class ReparacionesController extends Controller
         $negocio = Negocio::all();
         // return $negocio;
 
-        $rep_actual = Pedido::join('persona', 'pedido.personaid', '=', 'persona.idpersona')
+        $rep_actual = Pedido::join('clientes', 'pedido.clienteid', '=', 'clientes.idcliente')
             ->leftJoin('usuarios', 'pedido.usuarioid', '=', 'usuarios.idusuarios')
             ->join('dispositivo', 'pedido.id_device', '=', 'dispositivo.id_device')
             ->where('pedido.idpedido', $reparacion->idpedido)
-            ->select('pedido.*', 'persona.*', 'persona.apellidos as persona_apellidos', 'persona.telefono as persona_telefono', 'usuarios.*', 'usuarios.apellidos as usuario_apellidos', 'usuarios.email as usuario_email', 'dispositivo.*')
+            ->select('pedido.*', 'clientes.*', 'clientes.apellidos as persona_apellidos', 'clientes.telefono as persona_telefono', 'usuarios.*', 'usuarios.apellidos as usuario_apellidos', 'usuarios.email as usuario_email', 'dispositivo.*')
             ->get();
         // return $rep_actual;
         // return view('Backend.Reparaciones.reparacionesprint', compact('rep_actual', 'negocio'));

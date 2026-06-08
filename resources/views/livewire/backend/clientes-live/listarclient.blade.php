@@ -4,7 +4,7 @@
             height="100px">
             <option></option>
             @foreach ($clientes as $client)
-                <option value="{{ $client->idpersona }}">{{ $client->nombres }} {{ $client->apellidos }}</option>
+                <option value="{{ $client->idcliente }}">{{ $client->nombres }} {{ $client->apellidos }}</option>
             @endforeach
         </select>
     </div>

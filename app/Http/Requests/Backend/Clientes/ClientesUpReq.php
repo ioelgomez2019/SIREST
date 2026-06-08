@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ClientesUpReq extends FormRequest
 {
-    //protected $primaryKey = 'idpersona';
+    //protected $primaryKey = 'idcliente';
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -30,13 +30,13 @@ class ClientesUpReq extends FormRequest
             'nombre_cliente' => 'required',
             'apellido_cliente' => 'required',
             'identificacion_cliente' => ['required',
-                        Rule::unique('persona','identificacion')->ignore($this->cliente)
+                        Rule::unique('clientes','identificacion')->ignore($cliente)
                         ],
-            //'identificacion_cliente' => ['required', 'unique:persona,identificacion,'. $cliente->idpersona],
+            //'identificacion_cliente' => ['required', 'unique:clientes,identificacion,'. $cliente->idcliente],
             'password_cliente' => 'sometimes',
             'telefono_cliente' => 'required',
             'email_cliente'  => ['required', 'email',
-                            Rule::unique('persona','email')->ignore($this->cliente)
+                            Rule::unique('clientes','email')->ignore($cliente)
                             ],
             'direccionfiscal_cliente' => 'sometimes',
         ];

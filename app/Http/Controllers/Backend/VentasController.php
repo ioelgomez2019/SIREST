@@ -88,7 +88,7 @@ class VentasController extends Controller
     public function store(Request $request)
     {
         $ventas = Ventas::create([
-            'idpersona' => $request->cliente,
+            'idcliente' => $request->cliente,
             'lista_venta' => $request->tablaElementos,
             'tipodepago_venta' => $request->tipodepago,
             'total_venta' => $request->contenido_total_precio,
@@ -119,9 +119,9 @@ class VentasController extends Controller
      */
     public function show(Ventas $venta)
     {
-        $venta_actual = Ventas::join('persona', 'ventas.idpersona', '=', 'persona.idpersona')
+        $venta_actual = Ventas::join('clientes', 'ventas.idcliente', '=', 'clientes.idcliente')
             ->where('ventas.id_venta', $venta->id_venta)
-            ->select('ventas.*', 'persona.nombres', 'persona.apellidos', 'persona.telefono', 'persona.email')
+            ->select('ventas.*', 'clientes.nombres', 'clientes.apellidos', 'clientes.telefono', 'clientes.email')
             ->first();
 
         return view('Backend.Ventas.ventasver', compact('venta_actual'));
@@ -134,9 +134,9 @@ class VentasController extends Controller
     {
         $negocio = Negocio::all();
 
-        $venta_actual = Ventas::join('persona', 'ventas.idpersona', '=', 'persona.idpersona')
+        $venta_actual = Ventas::join('clientes', 'ventas.idcliente', '=', 'clientes.idcliente')
             ->where('ventas.id_venta', $venta->id_venta)
-            ->select('ventas.*', 'persona.nombres', 'persona.apellidos', 'persona.telefono', 'persona.email')
+            ->select('ventas.*', 'clientes.nombres', 'clientes.apellidos', 'clientes.telefono', 'clientes.email')
             ->first();
 
         return view('Backend.Ventas.ventasprint', compact('venta_actual', 'negocio'));

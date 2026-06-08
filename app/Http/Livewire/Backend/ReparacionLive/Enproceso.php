@@ -18,10 +18,10 @@ class Enproceso extends Component
 
     public function render()
     {
-        $pedidos = Pedido::join('persona', 'pedido.personaid', '=', 'persona.idpersona')
+        $pedidos = Pedido::join('clientes', 'pedido.clienteid', '=', 'clientes.idcliente')
             ->leftJoin('usuarios', 'pedido.usuarioid', '=', 'usuarios.idusuarios')
             ->join('dispositivo', 'pedido.id_device', '=', 'dispositivo.id_device')
-            ->select('pedido.*', 'pedido.status as estado_p', 'persona.*', 'persona.apellidos as persona_apellidos', 'usuarios.*', 'usuarios.apellidos as usuario_apellidos', 'usuarios.email as usuario_email', 'dispositivo.*')
+            ->select('pedido.*', 'pedido.status as estado_p', 'clientes.*', 'clientes.apellidos as persona_apellidos', 'usuarios.*', 'usuarios.apellidos as usuario_apellidos', 'usuarios.email as usuario_email', 'dispositivo.*')
             ->where('pedido.status', 2)
             ->get();
         return view('livewire.backend.reparacion-live.enproceso', [

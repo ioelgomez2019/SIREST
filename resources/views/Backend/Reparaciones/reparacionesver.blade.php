@@ -930,7 +930,7 @@
             $('#responsable').select2().trigger('change');
 
             // cliente
-            $('#cliente').val("{{ $rep_actual[0]->personaid }}");
+            $('#cliente').val("{{ $rep_actual[0]->clienteid }}");
             $('#cliente').select2().trigger('change');
         });
     </script>

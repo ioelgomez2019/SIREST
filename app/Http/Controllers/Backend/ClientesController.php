@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Persona;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 use App\Http\Requests\Backend\Clientes\ClientesReq;
 use App\Http\Requests\Backend\Clientes\ClientesUpReq;
@@ -30,13 +30,13 @@ class ClientesController extends Controller
     {
         // en la vista principal
         if ($request->ajax()) {
-            $personas = DB::table('persona')
-                ->select('persona.idpersona', 'persona.nombres', 'persona.apellidos', 'persona.identificacion', 'persona.telefono', 'persona.email', 'persona.password', 'persona.direccionfiscal', 'persona.status')->get();
+            $personas = DB::table('clientes')
+                ->select('clientes.idcliente', 'clientes.nombres', 'clientes.apellidos', 'clientes.identificacion', 'clientes.telefono', 'clientes.email', 'clientes.password', 'clientes.direccionfiscal', 'clientes.status')->get();
             return DataTables::of($personas)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $ruta_editar =  route('editar_clientes', $row->idpersona);
-                    $ruta_eliminar = route('eliminar_clientes', $row->idpersona);
+                    $ruta_editar =  route('editar_clientes', $row->idcliente);
+                    $ruta_eliminar = route('eliminar_clientes', $row->idcliente);
                     $form = '<form action="' . $ruta_eliminar . '" method="POST" class="formulario">
                             ' . csrf_field() . '
                             ' . method_field("delete") . '
@@ -72,7 +72,7 @@ class ClientesController extends Controller
     public function store(ClientesReq $request)
     {
         //return $request;
-        $clientes = Persona::create([
+        $clientes = Cliente::create([
             'nombres' => $request->nombre_cliente,
             'apellidos' => $request->apellido_cliente,
             'identificacion' => $request->identificacion_cliente,
@@ -98,7 +98,7 @@ class ClientesController extends Controller
      * Show the form for editing the specified resource.
      */
 
-    public function edit(Persona $cliente)
+    public function edit(Cliente $cliente)
     {
         //return $producto;
         //$categorias = Categorias::all();
@@ -110,7 +110,7 @@ class ClientesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ClientesUpReq $request, Persona $cliente)
+    public function update(ClientesUpReq $request, Cliente $cliente)
     {
         //return $request;
         //
@@ -145,7 +145,7 @@ class ClientesController extends Controller
      * Remove the specified resource from storage.
      */
 
-    public function destroy(Persona $cliente)
+    public function destroy(Cliente $cliente)
     {
         $cliente->delete();
         //return $categoria;
